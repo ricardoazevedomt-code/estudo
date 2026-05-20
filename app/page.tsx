@@ -2,6 +2,8 @@
 
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import { useSession, signOut } from "next-auth/react";
+import Link from "next/link";
 
 const products = [
   {
@@ -85,6 +87,7 @@ const testimonials = [
 ];
 
 export default function Home() {
+  const { data: session } = useSession();
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
@@ -99,26 +102,39 @@ export default function Home() {
     <>
       {/* ===== NAVBAR ===== */}
       <nav className={`navbar ${scrolled ? "scrolled" : ""}`} id="navbar">
-        <a href="#inicio" className="navbar-logo" aria-label="eu+fitness home">
-          eu+fitness
-        </a>
+        <Link href="/" className="navbar-logo" aria-label="eu+fitness home" style={{ display: "flex", alignItems: "center" }}>
+          <Image src="/logo.png" alt="eu+fitness logo" width={150} height={40} style={{ objectFit: "contain" }} priority />
+        </Link>
         <ul className="navbar-links">
           <li><a href="#inicio">Início</a></li>
           <li><a href="#colecao">Coleção</a></li>
           <li><a href="#diferenciais">Diferenciais</a></li>
           <li><a href="#depoimentos">Depoimentos</a></li>
-          <li>
-            <a
-              href="https://wa.me/5565996498231"
-              className="btn-primary"
-              id="navbar-contact-btn"
-              target="_blank"
-              rel="noopener noreferrer"
-              style={{ padding: "10px 24px", fontSize: "0.9rem" }}
-            >
-              Comprar Agora
-            </a>
-          </li>
+          {session ? (
+            <li style={{ display: "flex", alignItems: "center", gap: "15px" }}>
+              <span style={{ color: "var(--text-secondary)", fontSize: "0.9rem" }}>
+                Olá, <strong style={{ color: "var(--foreground)" }}>{session.user?.name?.split(" ")[0]}</strong>
+              </span>
+              <button
+                onClick={() => signOut()}
+                className="btn-outline"
+                style={{ padding: "8px 20px", fontSize: "0.85rem", borderRadius: "12px" }}
+              >
+                Sair
+              </button>
+            </li>
+          ) : (
+            <li>
+              <Link
+                href="/login"
+                className="btn-primary"
+                id="navbar-login-btn"
+                style={{ padding: "10px 24px", fontSize: "0.9rem" }}
+              >
+                Entrar
+              </Link>
+            </li>
+          )}
         </ul>
       </nav>
 
@@ -350,7 +366,9 @@ export default function Home() {
       <footer className="footer">
         <div className="footer-grid">
           <div>
-            <span className="footer-logo">eu+fitness</span>
+            <span className="footer-logo" style={{ display: "inline-block", marginBottom: "16px" }}>
+              <Image src="/logo.png" alt="eu+fitness logo" width={150} height={40} style={{ objectFit: "contain", objectPosition: "left" }} />
+            </span>
             <p className="footer-desc">
               Moda fitness criada com amor para a mulher que se cuida, se move e
               se inspira. Qualidade, estilo e performance em cada costura.
