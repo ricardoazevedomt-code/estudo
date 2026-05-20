@@ -173,7 +173,7 @@ export default function Home() {
                 <span>→</span>
               </a>
               <a
-                href="https://wa.me/5565996498231"
+                href="https://wa.me/5565981370452"
                 className="btn-outline"
                 id="hero-whatsapp-btn"
                 target="_blank"
@@ -282,7 +282,7 @@ export default function Home() {
                       <span className="product-price">{product.price}</span>
                     </div>
                     <a
-                      href="https://wa.me/5565996498231"
+                      href="https://wa.me/5565981370452"
                       className="product-buy-btn"
                       id={`product-buy-${product.id}`}
                       target="_blank"
@@ -347,7 +347,7 @@ export default function Home() {
         </p>
         <div className="cta-actions">
           <a
-            href="https://wa.me/5565996498231"
+            href="https://wa.me/5565981370452"
             className="btn-primary"
             id="cta-whatsapp-btn"
             target="_blank"
@@ -377,7 +377,7 @@ export default function Home() {
               <a href="#" className="social-btn" aria-label="Instagram" id="footer-instagram">📸</a>
               <a href="#" className="social-btn" aria-label="TikTok" id="footer-tiktok">🎵</a>
               <a
-                href="https://wa.me/5565996498231"
+                href="https://wa.me/5565981370452"
                 className="social-btn"
                 aria-label="WhatsApp"
                 id="footer-whatsapp"
@@ -412,7 +412,7 @@ export default function Home() {
           <div>
             <p className="footer-heading">Atendimento</p>
             <ul className="footer-links">
-              <li><a href="https://wa.me/5565996498231" target="_blank" rel="noopener noreferrer">WhatsApp</a></li>
+              <li><a href="https://wa.me/5565981370452" target="_blank" rel="noopener noreferrer">WhatsApp</a></li>
               <li><a href="#">contato@eumaisfit.com</a></li>
               <li><a href="#">Seg – Sex, 9h às 18h</a></li>
             </ul>
@@ -431,7 +431,7 @@ export default function Home() {
 
       {/* ===== WHATSAPP FLOAT ===== */}
       <a
-        href="https://wa.me/5565996498231"
+        href="https://wa.me/5565981370452"
         className="whatsapp-float"
         id="whatsapp-float-btn"
         target="_blank"
