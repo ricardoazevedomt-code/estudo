@@ -54,7 +54,7 @@ export default function RegisterPage() {
       <div className="glass w-full max-w-md p-8 rounded-3xl relative z-10 animate-fade-up shadow-2xl border border-white/10">
         <div className="flex flex-col items-center mb-8">
           <Link href="/">
-            <Image src="/logo.svg" alt="eu+fitness logo" width={150} height={40} className="mb-6 hover:scale-105 transition-transform" />
+            <Image src="/logo_transparent.png" alt="eu+fitness logo" width={150} height={40} className="mb-6 hover:scale-105 transition-transform" />
           </Link>
           <h1 className="text-3xl font-bold text-white mb-2">Crie sua conta</h1>
           <p className="text-[#b0b0c3] text-center">Junte-se à nossa comunidade</p>
