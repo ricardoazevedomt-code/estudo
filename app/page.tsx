@@ -103,7 +103,7 @@ export default function Home() {
       {/* ===== NAVBAR ===== */}
       <nav className={`navbar ${scrolled ? "scrolled" : ""}`} id="navbar">
         <Link href="/" className="navbar-logo" aria-label="eu+fitness home" style={{ display: "flex", alignItems: "center" }}>
-          <Image src="/logo.png" alt="eu+fitness logo" width={150} height={40} style={{ objectFit: "contain" }} priority />
+          <Image src="/logo.svg" alt="eu+fitness logo" width={150} height={40} style={{ objectFit: "contain" }} priority />
         </Link>
         <ul className="navbar-links">
           <li><a href="#inicio">Início</a></li>
@@ -367,7 +367,7 @@ export default function Home() {
         <div className="footer-grid">
           <div>
             <span className="footer-logo" style={{ display: "inline-block", marginBottom: "16px" }}>
-              <Image src="/logo.png" alt="eu+fitness logo" width={150} height={40} style={{ objectFit: "contain", objectPosition: "left" }} />
+              <Image src="/logo.svg" alt="eu+fitness logo" width={150} height={40} style={{ objectFit: "contain", objectPosition: "left" }} />
             </span>
             <p className="footer-desc">
               Moda fitness criada com amor para a mulher que se cuida, se move e
