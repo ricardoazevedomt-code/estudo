@@ -149,7 +149,7 @@ export default function Home() {
           <div className="animate-fade-up">
             <div className="hero-badge">
               <span>⚡</span>
-              Nova Coleção 2025
+              Nova Coleção 2026
             </div>
 
             <h1 className="hero-title">
