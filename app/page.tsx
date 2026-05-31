@@ -4,40 +4,51 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import { useSession, signOut } from "next-auth/react";
 import Link from "next/link";
+import { ProductGrid } from "./components/ProductGrid";
 
 const products = [
   {
     id: 1,
-    name: "Legging Power Fit",
-    category: "Calça Legging",
-    price: "R$ 189,90",
-    badge: "Novo",
-    badgeClass: "badge-new",
-    image: "/product_leggings.png",
-    alt: "Legging Power Fit pink and black",
+    name: 'Legging Power Fit',
+    sku: 'LPF-001',
+    category: 'Calça Legging',
+    price: 189.90,
+    badge: 'Novo',
+    badgeClass: 'badge-new',
+    image: '/product_leggings.png',
+    alt: 'Legging Power Fit pink and black',
+    images: [{ id: 1, url: '/product_leggings.png', order: 0 }],
+    variants: [],
   },
   {
     id: 2,
-    name: "Top Essence Pro",
-    category: "Top Esportivo",
-    price: "R$ 129,90",
-    oldPrice: "R$ 159,90",
-    badge: "Sale",
-    badgeClass: "badge-sale",
-    image: "/product_top.png",
-    alt: "Top Essence Pro purple",
+    name: 'Top Essence Pro',
+    sku: 'TEP-001',
+    category: 'Top Esportivo',
+    price: 159.90,
+    discountPrice: 129.90,
+    badge: 'Sale',
+    badgeClass: 'badge-sale',
+    image: '/product_top.png',
+    alt: 'Top Essence Pro purple',
+    images: [{ id: 2, url: '/product_top.png', order: 0 }],
+    variants: [],
   },
   {
     id: 3,
-    name: "Shorts Active Run",
-    category: "Shorts Fitness",
-    price: "R$ 109,90",
-    badge: "Hot",
-    badgeClass: "badge-hot",
-    image: "/product_shorts.png",
-    alt: "Shorts Active Run black",
+    name: 'Shorts Active Run',
+    sku: 'SAR-001',
+    category: 'Shorts Fitness',
+    price: 109.90,
+    badge: 'Hot',
+    badgeClass: 'badge-hot',
+    image: '/product_shorts.png',
+    alt: 'Shorts Active Run black',
+    images: [{ id: 3, url: '/product_shorts.png', order: 0 }],
+    variants: [],
   },
 ];
+
 
 const features = [
   {
@@ -164,14 +175,14 @@ export default function Home() {
             </p>
 
             <div className="hero-actions">
-              <a
+              <Link
                 href="#colecao"
                 className="btn-primary"
                 id="hero-shop-btn"
               >
                 Ver Coleção
                 <span>→</span>
-              </a>
+              </Link>
               <a
                 href="https://wa.me/5565981370452"
                 className="btn-outline"
@@ -244,58 +255,18 @@ export default function Home() {
       <div className="gradient-divider" />
 
       {/* ===== PRODUCTS ===== */}
-      <section id="colecao">
+      <section id="colecao" className="bg-[#f8f9fa] text-gray-900 border-t border-b border-gray-100">
         <div className="section">
-          <span className="section-tag">Nossa Coleção</span>
-          <h2 className="section-title">
+          <span className="section-tag text-rose-600 font-bold">Nossa Coleção</span>
+          <h2 className="section-title text-gray-900">
             Peças que fazem a{" "}
-            <span className="gradient-text">diferença</span>
+            <span className="text-rose-600 font-black">diferença</span>
           </h2>
-          <p className="section-subtitle">
+          <p className="section-subtitle text-gray-500">
             Conheça alguns dos nossos mais amados modelos. Tecido premium,
             design exclusivo e o encaixe perfeito para o seu corpo.
           </p>
-
-          <div className="products-grid">
-            {products.map((product) => (
-              <div className="product-card" key={product.id} id={`product-${product.id}`}>
-                <div className="product-image-wrapper">
-                  <Image
-                    src={product.image}
-                    alt={product.alt}
-                    fill
-                    sizes="(max-width: 768px) 100vw, 33vw"
-                    style={{ objectFit: "cover" }}
-                  />
-                  <span className={`product-badge ${product.badgeClass}`}>
-                    {product.badge}
-                  </span>
-                </div>
-                <div className="product-info">
-                  <p className="product-category">{product.category}</p>
-                  <h3 className="product-name">{product.name}</h3>
-                  <div className="product-footer">
-                    <div>
-                      {product.oldPrice && (
-                        <span className="product-price-old">{product.oldPrice}</span>
-                      )}
-                      <span className="product-price">{product.price}</span>
-                    </div>
-                    <a
-                      href="https://wa.me/5565981370452"
-                      className="product-buy-btn"
-                      id={`product-buy-${product.id}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      aria-label={`Comprar ${product.name}`}
-                    >
-                      🛒
-                    </a>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
+          <ProductGrid products={products} />
         </div>
       </section>
 

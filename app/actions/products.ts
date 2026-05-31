@@ -1,10 +1,10 @@
 import { prisma } from '@/lib/prisma';
 import { unstable_cache } from 'next/cache';
 import type { NextRequest } from 'next/server';
-
-
 import { promises as fs } from 'fs';
 import path from 'path';
+import { Product, ProductImage, ProductVariant } from '@/app/types/product';
+export type { Product, ProductImage, ProductVariant };
 
 // Helper to ensure the public/products directory exists
 async function ensureProductDir() {
@@ -13,30 +13,6 @@ async function ensureProductDir() {
   return dir;
 }
 
-// Type definitions
-export type ProductVariant = {
-  id: number;
-  color: string;
-  size: string;
-  stock: number;
-};
-
-export type ProductImage = {
-  id: number;
-  url: string; // relative URL, e.g. /products/abc123.jpg
-  order: number;
-};
-
-export type Product = {
-  id: number;
-  name: string;
-  sku: string;
-  price: number;
-  discountPrice?: number | null;
-  description?: string | null; // tiptap HTML
-  images: ProductImage[];
-  variants: ProductVariant[];
-};
 
 /** Get all products with images and variants (public) */
 export async function getAllProducts(): Promise<Product[]> {
@@ -61,6 +37,81 @@ export async function getAllProducts(): Promise<Product[]> {
     ];
   }
 }
+
+export async function getProductById(id: number): Promise<Product | null> {
+  try {
+    const product = await prisma.product.findUnique({
+      where: { id },
+      include: { images: { orderBy: { order: 'asc' } }, variants: true },
+    });
+    if (product) return product;
+  } catch (e) {
+    console.error('Error fetching product by ID', e);
+  }
+
+  const mockProducts: Product[] = [
+    {
+      id: 1,
+      name: 'Legging Power Fit',
+      sku: 'LPF-001',
+      price: 189.90,
+      discountPrice: null,
+      description: 'A Legging Power Fit foi desenvolvida para oferecer máxima performance e conforto. Com tecido de alta compressão, cós alto anatômico e zero transparência, é a parceira ideal para seus treinos mais intensos.',
+      images: [
+        { id: 1, url: '/product_leggings.png', order: 0 },
+        { id: 11, url: '/product_leggings.png', order: 1 }
+      ],
+      variants: [
+        { id: 101, color: 'Preto', size: 'P', stock: 10 },
+        { id: 102, color: 'Preto', size: 'M', stock: 15 },
+        { id: 103, color: 'Preto', size: 'G', stock: 8 },
+        { id: 104, color: 'Pink', size: 'P', stock: 5 },
+        { id: 105, color: 'Pink', size: 'M', stock: 12 },
+        { id: 106, color: 'Pink', size: 'G', stock: 7 }
+      ],
+    },
+    {
+      id: 2,
+      name: 'Top Essence Pro',
+      sku: 'TEP-001',
+      price: 129.90,
+      discountPrice: null,
+      description: 'O Top Essence Pro garante sustentação e estilo para qualquer atividade. Conta com bojo removível, alças médias confortáveis e tecido respirável que mantém sua pele seca e fresca.',
+      images: [
+        { id: 2, url: '/product_top.png', order: 0 },
+        { id: 21, url: '/product_top.png', order: 1 }
+      ],
+      variants: [
+        { id: 201, color: 'Roxo', size: 'P', stock: 8 },
+        { id: 202, color: 'Roxo', size: 'M', stock: 14 },
+        { id: 203, color: 'Roxo', size: 'G', stock: 10 }
+      ],
+    },
+    {
+      id: 3,
+      name: 'Shorts Active Run',
+      sku: 'SAR-001',
+      price: 109.90,
+      discountPrice: null,
+      description: 'Leveza e liberdade de movimento definem o Shorts Active Run. Possui short interno de alta compressão para evitar atrito, cós elástico confortável e bolso lateral funcional.',
+      images: [
+        { id: 3, url: '/product_shorts.png', order: 0 },
+        { id: 31, url: '/product_shorts.png', order: 1 }
+      ],
+      variants: [
+        { id: 301, color: 'Preto', size: 'P', stock: 12 },
+        { id: 302, color: 'Preto', size: 'M', stock: 18 },
+        { id: 303, color: 'Preto', size: 'G', stock: 9 },
+        { id: 304, color: 'Verde', size: 'P', stock: 6 },
+        { id: 305, color: 'Verde', size: 'M', stock: 10 },
+        { id: 306, color: 'Verde', size: 'G', stock: 5 }
+      ],
+    },
+  ];
+  return mockProducts.find(p => p.id === id) || null;
+}
+
+
 
 /** Create a product – expects multipart/form-data */
 export async function createProduct(req: NextRequest) {

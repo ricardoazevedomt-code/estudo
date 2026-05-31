@@ -21,4 +21,9 @@ export interface Product {
   technical?: string | null;
   images: ProductImage[];
   variants: ProductVariant[];
+  // UI fields
+  category?: string;
+  badge?: string;
+  badgeClass?: string;
+  alt?: string;
 }
